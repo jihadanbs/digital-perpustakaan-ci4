@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\InformasiPublikModel;
-
 if (!function_exists('uploadFile')) {
     function uploadFile($inputName, $destinationPath)
     {
@@ -311,12 +309,3 @@ if (!function_exists('uploadFile')) {
         return $newFilePath;
     }
 }
-/* 
-    => cara penggunaan, kalian masukan ke function construct : 
-        "helper('upload');"
-
-    => untuk penggunaan pada saat upload silahkan gunakan
-     "$nama_variable_untukrandomname = uploadFile('nama_variabel_post', 'PATH');"
-
-    => PATH itu contohnya "artikel/tumbnail"
-*/

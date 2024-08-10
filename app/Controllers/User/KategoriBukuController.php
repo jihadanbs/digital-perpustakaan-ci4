@@ -3,21 +3,9 @@
 namespace App\Controllers\User;
 
 use App\Controllers\BaseController;
-use App\Models\KategoriBukuModel;
-use App\Models\UserModel;
 
 class KategoriBukuController extends BaseController
 {
-    protected $session;
-    protected $m_user;
-    protected $m_kategori_buku;
-
-    public function __construct()
-    {
-        $this->session = session();
-        $this->m_user = new UserModel();
-        $this->m_kategori_buku = new KategoriBukuModel();
-    }
     public function index()
     {
         if (!$this->session->has('islogin')) {
@@ -71,8 +59,7 @@ class KategoriBukuController extends BaseController
             }
 
             // Cek apakah nama_kategori sudah ada dalam database
-            $model = new KategoriBukuModel();
-            $existing_data = $model->where('nama_kategori', $nama_kategori)->where('id_user', $id_user)->first();
+            $existing_data = $this->m_kategori_buku->where('nama_kategori', $nama_kategori)->where('id_user', $id_user)->first();
 
             if ($existing_data) {
                 // Jika nama_kategori sudah ada dalam database, kirim pesan error
@@ -80,7 +67,7 @@ class KategoriBukuController extends BaseController
             }
 
             // Simpan data ke dalam database dengan id_user
-            $model->save([
+            $this->m_kategori_buku->save([
                 'nama_kategori' => $nama_kategori,
                 'id_user' => $id_user,
             ]);
@@ -90,7 +77,7 @@ class KategoriBukuController extends BaseController
         }
 
         // Jika berhasil disimpan, kembalikan ke halaman yang diinginkan dengan pesan sukses
-        return redirect()->to('user/kategori_buku');
+        return redirect()->to('user/kategori/index')->with('success', 'Data berhasil disimpan.');
     }
 
     public function simpan_perubahan()

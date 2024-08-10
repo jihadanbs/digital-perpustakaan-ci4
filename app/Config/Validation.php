@@ -51,13 +51,13 @@ class Validation extends BaseConfig
         $table = array_shift($params);
         $builder = db_connect()->table($table);
 
-        // Mendapatkan id_kategori_informasi dari $data jika tersedia
-        $id_kategori_informasi = isset($data[$params[0]]) ? $data[$params[0]] : null;
+        // Mendapatkan id_kategori_buku dari $data jika tersedia
+        $id_kategori_buku = isset($data[$params[0]]) ? $data[$params[0]] : null;
 
-        // Memeriksa keunikan judul hanya jika id_kategori_informasi dan id_kategori_informasi telah dipilih
-        if ($id_kategori_informasi !== null) {
-            $builder->where('judul', $str)
-                ->where('id_kategori_informasi', $id_kategori_informasi);
+        // Memeriksa keunikan judul hanya jika id_kategori_buku dan id_kategori_buku telah dipilih
+        if ($id_kategori_buku !== null) {
+            $builder->where('judul_buku', $str)
+                ->where('id_kategori_buku', $id_kategori_buku);
         } else {
             // Jika salah satu atau ketiga nilai tidak ada, abaikan periksa keunikan judul
             return true;
@@ -90,34 +90,6 @@ class Validation extends BaseConfig
 
         return $user === null;
     }
-
-    // public function title_exists(string $str, string &$fields, array $data): bool
-    // {
-    //     $model = new InformasiPublikModel();
-    //     return $model->isTitleExists($data['id_lembaga'], $data['id_kategori_informasi_publik'], $data['id_jenis'], $str) === null;
-    // }
-
-    // public function is_unique_judul(string $str, string $fields, array $data): bool
-    // {
-    //     $params = explode(',', $fields);
-    //     $table = array_shift($params);
-    //     $builder = db_connect()->table($table);
-
-    //     $id_lembaga = $data[$params[0]] ?? null;
-    //     $id_kategori_informasi = $data[$params[1]] ?? null;
-    //     $id_jenis = $data[$params[2]] ?? null;
-
-    //     if ($id_lembaga !== null && $id_kategori_informasi !== null && $id_jenis !== null) {
-    //         $builder->where('judul', $str)
-    //             ->where('id_lembaga', $id_lembaga)
-    //             ->where('id_kategori_informasi', $id_kategori_informasi)
-    //             ->where('id_jenis', $id_jenis);
-    //     } else {
-    //         return true;
-    //     }
-
-    //     return $builder->countAllResults() === 0;
-    // }
 
     public function password_match(string $str, ?string $fields = null, array $data = []): bool
     {

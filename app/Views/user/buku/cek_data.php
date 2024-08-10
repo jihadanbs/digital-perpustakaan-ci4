@@ -1,4 +1,4 @@
-<?= $this->include('admin/layouts/script') ?>
+<?= $this->include('user/layouts/script') ?>
 <style>
     /* CSS untuk readmore */
     .modal {
@@ -43,15 +43,42 @@
         text-decoration: underline;
         cursor: pointer;
     }
+
+    /* CSS untuk print */
+    @media print {
+        .no-print {
+            display: none;
+        }
+
+        .card-body {
+            border: 1px solid #000;
+            /* Border untuk bagian dalam */
+            padding: 5px;
+            /* Tambahkan padding untuk estetika */
+        }
+
+        /* Contoh tambahan untuk tabel */
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #000;
+            /* Tambahkan border untuk sel tabel */
+            padding: 5px;
+        }
+    }
 </style>
 <div class="col-md-12">
 
-    <?= $this->include('admin/layouts/navbar') ?>
+    <?= $this->include('user/layouts/navbar') ?>
     <!-- saya nonaktifkan agar side bar tidak dapat di klik sembarangan -->
     <div style="pointer-events: none;">
-        <?= $this->include('admin/layouts/sidebar') ?>
+        <?= $this->include('user/layouts/sidebar') ?>
     </div>
-    <?= $this->include('admin/layouts/rightsidebar') ?>
+    <?= $this->include('user/layouts/rightsidebar') ?>
 
     <?= $this->section('content'); ?>
 
@@ -68,7 +95,7 @@
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Informasi Edukasi</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Data Buku</a></li>
                                     <li class="breadcrumb-item active">Formulir Cek Data</li>
                                 </ol>
                             </div>
@@ -79,90 +106,55 @@
                 <!-- end page title -->
 
                 <div class="card card-outline card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">POLSEK KAYU ARO</h3>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3 class="card-title">PERPUS DIGITAL</h3>
+                        <div>
+                            <a href="javascript:window.print()" class="btn btn-success btn-md waves-effect waves-light ml-3 no-print">
+                                <i class="fa fa-print"></i> Print
+                            </a>
+                            <a href="<?= site_url('/user/buku/exportExcel') ?>" class="btn btn-success waves-effect waves-light ml-3 no-print">
+                                <i class="fa fa-file-excel"></i> Export to Excel
+                            </a>
+                        </div>
                     </div>
 
                     <div class="card-body">
-
-                        <?php
-                        function truncateText($text, $maxLength)
-                        {
-                            if (strlen($text) > $maxLength) {
-                                return substr($text, 0, $maxLength) . '...';
-                            }
-                            return $text;
-                        }
-                        ?>
-
-                        <?php
-                        // Contoh format tanggal dari database
-                        $tanggal_diterbitkan = $tb_informasi_edukasi[0]->tanggal_diterbitkan ?? '';
-
-                        if (!empty($tanggal_diterbitkan)) {
-                            $date = new DateTime($tanggal_diterbitkan);
-                            $bulan = [
-                                'January' => 'Januari',
-                                'February' => 'Februari',
-                                'March' => 'Maret',
-                                'April' => 'April',
-                                'May' => 'Mei',
-                                'June' => 'Juni',
-                                'July' => 'Juli',
-                                'August' => 'Agustus',
-                                'September' => 'September',
-                                'October' => 'Oktober',
-                                'November' => 'November',
-                                'December' => 'Desember',
-                            ];
-                            $formatted_date = $date->format('d') . ' ' . $bulan[$date->format('F')] . ' ' . $date->format('Y');
-                        } else {
-                            $formatted_date = '';
-                        }
-                        ?>
-
                         <table class="table table-borderless table-sm">
-                            <h4 class="text-center mb-3"><b>Formulir Cek Data Informasi-Edukasi</b></h4>
-                            <?php if (!empty($tb_informasi_edukasi)) : ?>
+                            <h4 class="text-center mb-3"><b>Formulir Cek Data Buku</b></h4>
+                            <?php if (!empty($tb_buku)) : ?>
                                 <tr>
                                     <td rowspan="17" width="250px" class="text-center">
-                                        <?php if ($tb_informasi_edukasi[0]->profile_penulis ?? '') : ?>
-                                            <a href="<?= esc(base_url($tb_informasi_edukasi[0]->profile_penulis), 'attr') ?>" title="Lihat gambar" target="_blank">
-                                                <img src="<?= esc(base_url($tb_informasi_edukasi[0]->profile_penulis), 'attr') ?>" width="250px" height="200px" alt="Gambar Penulis" id="gambar_load">
+                                        <?php if ($tb_buku[0]->file_cover_buku ?? '') : ?>
+                                            <a href="<?= esc(site_url($tb_buku[0]->file_cover_buku), 'attr') ?>" title="Lihat gambar" target="_blank">
+                                                <img src="<?= esc(site_url($tb_buku[0]->file_cover_buku), 'attr') ?>" width="150px" height="200px" alt="Gambar Penulis" id="gambar_load" style="border: 2px solid #ccc; border-radius: 10px; box-shadow: 2px 2px 8px rgba(0,0,0,0.0);">
                                             </a>
                                         <?php else : ?>
                                             <a href="#" title="File tidak tersedia">
-                                                <img src="<?= base_url('path/to/default/image.jpg') ?>" width="250px" height="200px" alt="Gambar tidak tersedia" id="gambar_load">
+                                                <img src="<?= site_url('path/to/default/image.jpg') ?>" width="250px" height="200px" alt="Gambar tidak tersedia" id="gambar_load" style="border: 2px solid #ccc; border-radius: 5px; box-shadow: 2px 2px 8px rgba(0,0,0,0.0);">
                                             </a>
                                         <?php endif; ?>
                                     </td>
-
                                     <th width="170px">Judul</th>
                                     <th width="30px" class="text-center">:</th>
-                                    <td><?= esc($tb_informasi_edukasi[0]->judul ?? '', 'html') ?> </td>
+                                    <td><?= esc($tb_buku[0]->judul_buku ?? '', 'html') ?> </td>
                                 </tr>
                                 <tr>
-                                    <th>Kategori Informasi</th>
+                                    <th>Kategori Buku</th>
                                     <th class="text-center">:</th>
-                                    <td><?= esc($tb_informasi_edukasi[0]->nama_kategori ?? '', 'html') ?></td>
+                                    <td><?= esc($tb_buku[0]->nama_kategori ?? '', 'html') ?></td>
                                 </tr>
                                 <tr>
-                                    <th style="font-size: 0.9rem;">Tanggal Diterbitkan</th>
-                                    <th class="text-center" style="font-size: 0.9rem;">:</th>
-                                    <td style="font-size: 0.9rem;"><?= esc($formatted_date, 'html') ?></td>
-                                </tr>
-                                <tr>
-                                    <th width="150px">Penulis</th>
+                                    <th width="150px">Jumlah</th>
                                     <th width="30px" class="text-center">:</th>
-                                    <td><?= esc($tb_informasi_edukasi[0]->penulis ?? '', 'html') ?></td>
+                                    <td><?= esc($tb_buku[0]->jumlah ?? '', 'html') ?></td>
                                 </tr>
                                 <tr>
-                                    <th>Isi Konten</th>
+                                    <th>Deskripsi</th>
                                     <th class="text-center">:</th>
                                     <td class="readmore">
-                                        <strong><?= esc(truncateText($tb_informasi_edukasi[0]->konten, 50) ?? 'Belum ada catatan lebih lanjut', 'html') ?>
-                                            <?php if (strlen(strip_tags($tb_informasi_edukasi[0]->konten)) > 50) : ?>
-                                                <a href="#" class="read-more-link" data-text="<?= esc(strip_tags($tb_informasi_edukasi[0]->konten), 'attr') ?>">Read more..</a>
+                                        <strong><?= esc(truncateText($tb_buku[0]->deskripsi, 255) ?? 'Belum ada deskripsi lebih lanjut', 'html') ?>
+                                            <?php if (strlen(strip_tags($tb_buku[0]->deskripsi)) > 255) : ?>
+                                                <a href="#" class="read-more-link" data-text="<?= esc(strip_tags($tb_buku[0]->deskripsi), 'attr') ?>">Read more..</a>
                                             <?php endif; ?>
                                         </strong>
                                     </td>
@@ -182,56 +174,61 @@
                             <thead class="text-center">
                                 <tr>
                                     <th width="50px">NO</th>
-                                    <th>Dokumen Foto Informasi-Edukasi</th>
+                                    <th>Dokumen Data Buku</th>
                                     <th width="100px">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $no = 1;
-                                foreach ($dokumen as $key => $value) : ?>
+                                <?php $no = 1; ?>
+                                <?php if (is_array($dokumen) || is_object($dokumen)) : ?>
+                                    <?php foreach ($dokumen as $key => $value) : ?>
+                                        <tr>
+                                            <td class="text-center"><?= esc($no++, 'html') ?>.</td>
+                                            <td><?= esc($value->judul_buku, 'html') ?></td>
+                                            <td class="text-center">
+                                                <?php if ($value->file_buku) : ?>
+                                                    <a href="<?= esc(base_url($value->file_buku), 'attr') ?>" class="btn btn-info btn-sm view" target="_blank">
+                                                        <i class="fas fa-eye"></i> View File
+                                                    </a>
+                                                <?php else : ?>
+                                                    <a href="#" class="btn btn-info btn-sm view disabled" title="File tidak tersedia">
+                                                        <i class="fas fa-eye"></i> View File
+                                                    </a>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
                                     <tr>
-                                        <td class="text-center"><?= esc($no++, 'html') ?>.</td>
-                                        <td><?= esc($value->judul, 'html') ?></td>
-                                        <td class="text-center">
-                                            <?php if ($value->gambar) : ?>
-                                                <a href="<?= esc(base_url($value->gambar), 'attr') ?>" class="btn btn-info btn-sm view" target="_blank">
-                                                    <i class="fas fa-eye"></i> View File
-                                                </a>
-                                            <?php else : ?>
-                                                <a href="#" class="btn btn-info btn-sm view disabled" title="File tidak tersedia">
-                                                    <i class="fas fa-eye"></i> View File
-                                                </a>
-                                            <?php endif; ?>
-                                        </td>
+                                        <td colspan="3">Tidak ada data untuk ditampilkan.</td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
 
                         <div class="form-group mb-4 mt-4">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="<?= esc(site_url('admin/informasi'), 'attr') ?>" class="btn btn-secondary btn-md ml-3">
+                                <a href="<?= esc(site_url('user/buku'), 'attr') ?>" class="btn btn-secondary btn-md ml-3 no-print">
                                     <i class="fas fa-arrow-left"></i> Kembali
                                 </a>
-                                <a href="<?= esc(site_url('admin/informasi/edit/' . $value->id_informasi), 'attr') ?>" class="btn btn-warning btn-md edit">
+                                <a href="<?= esc(site_url('user/buku/edit/' . $value->id_buku), 'attr') ?>" class="btn btn-warning btn-md edit no-print">
                                     <i class="fas fa-pencil-alt"></i> Edit
                                 </a>
-                                <button type="button" class="btn btn-danger btn-md ml-3 waves-effect waves-light sa-warning" data-id="<?= $value->id_informasi ?>">
+                                <button type="button" class="btn btn-danger btn-md ml-3 waves-effect waves-light sa-warning no-print" data-id="<?= $value->id_buku ?>">
                                     <i class="fas fa-trash-alt"></i> Delete
                                 </button>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
-    <?= $this->include('admin/layouts/footer') ?>
+    <?= $this->include('user/layouts/footer') ?>
 </div>
 
-<?= $this->include('admin/layouts/script2') ?>
+<?= $this->include('user/layouts/script2') ?>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -265,7 +262,7 @@
     $(document).ready(function() {
         $('.sa-warning').click(function(e) {
             e.preventDefault();
-            var id_informasi = $(this).data('id');
+            var id_buku = $(this).data('id');
 
             Swal.fire({
                 title: "Anda Yakin Ingin Menghapus?",
@@ -279,9 +276,9 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "POST",
-                        url: "/admin/informasi/delete2", // Ubah sesuai dengan URL
+                        url: "<?= site_url('/user/buku/delete2') ?>",
                         data: {
-                            id_informasi: id_informasi,
+                            id_buku: id_buku,
                             _method: 'DELETE'
                         },
                         dataType: 'json',
@@ -292,8 +289,8 @@
                                     text: response.message,
                                     icon: "success"
                                 }).then(() => {
-                                    // Redirect ke halaman /admin/informasi setelah sukses menghapus
-                                    window.location.href = '/admin/informasi';
+                                    // Redirect ke halaman /user/buku setelah sukses menghapus
+                                    window.location.href = '<?= site_url('/user/buku') ?>';
                                 });
                             } else if (response.status === 'error') {
                                 Swal.fire({

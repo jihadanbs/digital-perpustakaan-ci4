@@ -113,7 +113,7 @@
                             <img src="<?= base_url('assets/img/binmas.png') ?>" alt="" height="24">
                         </span>
                         <span class="logo-lg">
-                            <img src="<?= base_url('assets/img/binmas.png') ?>" alt="" height="24"> <span class="judul">POLSEK KAYU ARO</span>
+                            <img src="<?= base_url('assets/img/binmas.png') ?>" alt="" height="24"> <span class="judul">PERPUS DIGITAL</span>
                         </span>
                     </a>
 
@@ -122,7 +122,7 @@
                             <img src="<?= base_url('assets/img/binmas.png') ?>" alt="" height="24">
                         </span>
                         <span class="logo-lg">
-                            <img src="<?= base_url('assets/img/binmas.png') ?>" alt="" height="24"> <span class="judul">POLSEK KAYU ARO</span>
+                            <img src="<?= base_url('assets/img/binmas.png') ?>" alt="" height="24"> <span class="judul">PERPUS DIGITAL</span>
                         </span>
                     </a>
                 </div>
@@ -165,7 +165,6 @@
         </div>
 
         <div class="d-flex">
-
 
             <div class="dropdown d-none d-sm-inline-block">
             </div>

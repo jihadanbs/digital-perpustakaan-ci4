@@ -90,7 +90,7 @@
                 <li>
                     <a href="buku">
                         <i data-feather="book-open"></i>
-                        <span data-key="t-dashboard">Data Buku</span>
+                        <span data-key="t-dashboard">Buku</span>
                     </a>
                 </li>
 

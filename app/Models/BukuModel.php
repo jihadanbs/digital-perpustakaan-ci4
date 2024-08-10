@@ -13,9 +13,21 @@ class BukuModel extends Model
     protected $useTimestamps = true;
     protected $useSoftDeletes = false;
 
-    public function getAllDataByUser1($id_user)
+    public function getAllDataUserKategori($id_user, $kategori_id = null)
     {
-        return $this->where('id_user', $id_user)->orderBy('id_buku', 'DESC')->findAll();
+        $builder = $this->db->table('tb_buku');
+        $builder->select('tb_buku.*, GROUP_CONCAT(tb_kategori_buku.nama_kategori SEPARATOR ", ") as nama_kategori');
+        $builder->join('tb_kategori_buku', 'tb_buku.id_kategori_buku = tb_kategori_buku.id_kategori_buku');
+        $builder->where('tb_buku.id_user', $id_user);
+
+        if ($kategori_id) {
+            $builder->where('tb_buku.id_kategori_buku', $kategori_id);
+        }
+
+        $builder->groupBy('tb_buku.id_buku');
+        $builder->orderBy('tb_buku.id_buku', 'DESC');
+
+        return $builder->get()->getResultArray();
     }
 
     public function getAllDataByUser($id_user)
@@ -29,6 +41,72 @@ class BukuModel extends Model
             ->get()
             ->getResultArray();
     }
+
+    public function getFilesById($id_buku)
+    {
+        // Ambil hanya kolom yang dibutuhkan
+        return $this->select('file_cover_buku, file_buku')->where('id_buku', $id_buku)->findAll();
+    }
+
+    public function deleteById($id_buku)
+    {
+        // Menghapus entri di tabel berdasarkan id_buku
+        return $this->where('id_buku', $id_buku)->delete();
+    }
+
+    public function getBuku($slug = false)
+    {
+        $builder = $this->db->table('tb_buku');
+        $builder->select('tb_buku.*, tb_kategori_buku.nama_kategori');
+        $builder->join('tb_kategori_buku', 'tb_kategori_buku.id_kategori_buku = tb_buku.id_kategori_buku');
+
+        if ($slug !== false) {
+            $builder->where('tb_buku.slug', $slug);
+        }
+
+        $builder->orderBy('tb_buku.id_buku', 'DESC');
+        $query = $builder->get();
+        $results = $query->getResult();
+
+        // Ambil data tambahan berdasarkan id_buku
+        foreach ($results as $result) {
+            $id_buku = $result->id_buku;
+            $additional_data = $this->getDokumenById($id_buku);
+            $result->additional_data = $additional_data;
+        }
+
+        // Jika $id_buku diberikan, kembalikan satu baris hasil
+        if ($id_buku !== false) {
+            return $results ? $results[0] : null;
+        }
+
+        return $results;
+    }
+
+    public function getDataForDataTables($id_user)
+    {
+        return $this->db->table('tb_buku')
+            ->select('tb_buku.id_buku, tb_buku.file_cover_buku, tb_buku.judul_buku, tb_buku.deskripsi, GROUP_CONCAT(tb_kategori_buku.nama_kategori SEPARATOR ", ") as nama_kategori')
+            ->join('tb_kategori_buku', 'tb_buku.id_kategori_buku = tb_kategori_buku.id_kategori_buku')
+            ->where('tb_buku.id_user', $id_user)
+            ->groupBy('tb_buku.id_buku')
+            ->orderBy('tb_buku.id_buku', 'DESC')
+            ->get();
+    }
+
+    public function getAllDataByUserAndCategory($id_user, $kategori_id = null)
+    {
+        $builder = $this->db->table('tb_buku');
+        $builder->where('id_user', $id_user);
+
+        if ($kategori_id) {
+            $builder->where('id_kategori', $kategori_id);
+        }
+
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
 
     public function getAllData($id_buku = null)
     {
@@ -69,35 +147,6 @@ class BukuModel extends Model
         return $result;
     }
 
-    public function getBuku($slug = false)
-    {
-        $builder = $this->db->table('tb_buku');
-        $builder->select('tb_buku.*, tb_kategori_buku.nama_kategori');
-        $builder->join('tb_kategori_buku', 'tb_kategori_buku.id_kategori_buku = tb_buku.id_kategori_buku');
-
-        if ($slug !== false) {
-            $builder->where('tb_buku.slug', $slug);
-        }
-
-        $builder->orderBy('tb_buku.id_buku', 'DESC');
-        $query = $builder->get();
-        $results = $query->getResult();
-
-        // Ambil data tambahan berdasarkan id_buku
-        foreach ($results as $result) {
-            $id_buku = $result->id_buku;
-            $additional_data = $this->getDokumenById($id_buku);
-            $result->additional_data = $additional_data;
-        }
-
-        // Jika $id_buku diberikan, kembalikan satu baris hasil
-        if ($id_buku !== false) {
-            return $results ? $results[0] : null;
-        }
-
-        return $results;
-    }
-
     public function getAll($id_buku = null)
     {
         $builder = $this->db->table('id_buku');
@@ -112,18 +161,6 @@ class BukuModel extends Model
     public function getData()
     {
         return $this->orderBy('id_buku', 'DESC')->findAll();
-    }
-
-    public function getFilesById($id_buku)
-    {
-        // Ambil hanya kolom yang dibutuhkan
-        return $this->select('gambar')->where('id_buku', $id_buku)->findAll();
-    }
-
-    public function deleteById($id_buku)
-    {
-        // Menghapus entri di tabel berdasarkan id_buku
-        return $this->where('id_buku', $id_buku)->delete();
     }
 
     public function getTotalBuku($id_user)

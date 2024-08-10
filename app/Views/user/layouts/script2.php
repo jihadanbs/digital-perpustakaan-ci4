@@ -37,3 +37,5 @@
 <script src="<?= base_url('assets/admin/js/pages/form-validation.init.js') ?>"></script>
 <!-- password addon init -->
 <script src="<?= base_url('assets/admin/js/pages/pass-addon.init.js') ?>"></script>
+<!-- Export -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>

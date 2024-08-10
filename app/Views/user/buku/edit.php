@@ -1,4 +1,4 @@
-<?= $this->include('admin/layouts/script') ?>
+<?= $this->include('user/layouts/script') ?>
 
 <style>
     .separator {
@@ -7,12 +7,12 @@
     }
 </style>
 
-<?= $this->include('admin/layouts/navbar') ?>
+<?= $this->include('user/layouts/navbar') ?>
 <!-- saya nonaktifkan agar side bar tidak dapat di klik sembarangan -->
 <div style="pointer-events: none;">
-    <?= $this->include('admin/layouts/sidebar') ?>
+    <?= $this->include('user/layouts/sidebar') ?>
 </div>
-<?= $this->include('admin/layouts/rightsidebar') ?>
+<?= $this->include('user/layouts/rightsidebar') ?>
 
 <?= $this->section('content'); ?>
 <div class="main-content">
@@ -43,7 +43,7 @@
                         <div class="card-body">
                             <h2 class="text-center mb-4">Formulir Ubah Data Informasi-Edukasi</h2>
 
-                            <form action="<?= esc(site_url('/admin/informasi/update/' . $tb_informasi_edukasi['id_informasi']), 'attr') ?>" method="post" enctype="multipart/form-data" id="validationForm" novalidate>
+                            <form action="<?= esc(site_url('/user/buku/update/' . $tb_informasi_edukasi['id_informasi']), 'attr') ?>" method="post" enctype="multipart/form-data" id="validationForm" novalidate>
                                 <input type="hidden" name="_method" value="PUT">
                                 <?= csrf_field(); ?>
 
@@ -135,7 +135,7 @@
 
                                 <div class="form-group mb-4 mt-4">
                                     <div class="d-grid gap-2 d-md-flex justify-content-end">
-                                        <a href="<?= esc(site_url('/admin/informasi/cek_data/' . $tb_informasi_edukasi['slug']), 'attr') ?>" class="btn btn-secondary btn-md ml-3">
+                                        <a href="<?= esc(site_url('/user/informasi/cek_data/' . $tb_informasi_edukasi['slug']), 'attr') ?>" class="btn btn-secondary btn-md ml-3">
                                             <i class="fas fa-arrow-left"></i> Kembali
                                         </a>
                                         <button type="submit" class="btn btn-primary ">Ubah Data</button>
@@ -152,10 +152,10 @@
 </div>
 
 
-<?= $this->include('admin/layouts/footer') ?>
+<?= $this->include('user/layouts/footer') ?>
 <!-- end main content-->
 
-<?= $this->include('admin/layouts/script2') ?>
+<?= $this->include('user/layouts/script2') ?>
 
 <!-- autofocus input edit langsung kebelakang kata -->
 <script>

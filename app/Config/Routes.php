@@ -6,12 +6,6 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->GET('/', 'Home::index');
-$routes->GET('/', 'Home::detail-informasi');
-$routes->get('detail-informasi/(:segment)', 'Home::blog/$1');
-
-
-//TOKEN CSRF
-$routes->get('get-new-csrf-token', 'SecurityController::getNewCSRFToken');
 
 //AUTHENTICATION
 $routes->GROUP('authentication', function ($routes) { //catatan : pastikan POST / GET
@@ -59,6 +53,9 @@ $routes->GROUP('user', ['namespace' => 'App\Controllers\User'], function ($route
     /*=================================== BUKU ====================================*/
     $routes->GET('buku', 'BukuController::index', ['namespace' => 'App\Controllers\User']);
     $routes->GROUP('buku', static function ($routes) {
+        $routes->POST('get_data', 'BukuController::get_data', ['namespace' => 'App\Controllers\User']);
+        $routes->GET('get_kategori', 'BukuController::get_kategori', ['namespace' => 'App\Controllers\User']);
+        $routes->GET('exportExcel', 'BukuController::exportExcel', ['namespace' => 'App\Controllers\User']);
         $routes->GET('totalData/(:num)', 'BukuController::totalData/$1', ['namespace' => 'App\Controllers\User']);
         $routes->GET('tambah', 'BukuController::tambah', ['namespace' => 'App\Controllers\User']);
         $routes->POST('save', 'BukuController::save', ['namespace' => 'App\Controllers\User']);

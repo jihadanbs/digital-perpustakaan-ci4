@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Models\JabatanModel;
 use App\Models\UserModel;
 use App\Models\BukuModel;
@@ -61,6 +64,8 @@ abstract class BaseController extends Controller
     protected $m_kategori_buku;
     protected $db;
     protected $email;
+    protected $spreadsheet;
+    protected $writer;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -78,11 +83,28 @@ abstract class BaseController extends Controller
 
         // Helper
         helper("upload_helper");
+        helper("text_helper");
 
         // Model 
         $this->m_jabatan = new JabatanModel();
         $this->m_user = new UserModel();
         $this->m_buku = new BukuModel();
         $this->m_kategori_buku = new KategoriBukuModel();
+        $this->spreadsheet = new Spreadsheet();
+        $this->writer = new Xlsx($this->spreadsheet);
+    }
+
+    protected function createDrawing($name, $description, $path, $height, $coordinates, $sheet)
+    {
+        // Membuat objek Drawing baru setiap kali metode ini dipanggil
+        $drawing = new Drawing();
+        $drawing->setName($name);
+        $drawing->setDescription($description);
+        $drawing->setPath($path);
+        $drawing->setHeight($height);
+        $drawing->setCoordinates($coordinates);
+        $drawing->setWorksheet($sheet);
+
+        return $drawing;
     }
 }
