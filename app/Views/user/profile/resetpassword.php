@@ -1,4 +1,4 @@
-<?= $this->include('admin/layouts/script') ?>
+<?= $this->include('user/layouts/script') ?>
 <style>
     .profile-card {
         text-align: center;
@@ -189,41 +189,26 @@
 </head>
 
 <div style="pointer-events: none;">
-    <?= $this->include('admin/layouts/navbar') ?>
+    <?= $this->include('user/layouts/navbar') ?>
 </div>
-<?= $this->include('admin/layouts/rightsidebar') ?>
+<?= $this->include('user/layouts/rightsidebar') ?>
 
 <body>
 
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
-
-                <?php
-                // Mendapatkan id_jabatan dari $tb_user
-                $id_jabatan = isset($tb_user[0]->id_jabatan) ? $tb_user[0]->id_jabatan : '';
-
-                // Mencari jabatan berdasarkan id_jabatan dari $tb_jabatan
-                $nama_jabatan = '';
-                foreach ($tb_jabatan as $jabatan) {
-                    if ($jabatan['id_jabatan'] == $id_jabatan) {
-                        $nama_jabatan = $jabatan['nama_jabatan'];
-                        break;
-                    }
-                }
-                ?>
-
                 <div class="col-md-4 p-3">
                     <!-- Foto Profile Card -->
                     <div class="card card-custom mb-3">
                         <div class="card-body profile-card">
                             <div class="text-center mb-4">
                                 <div class="edit-icon">
-                                    <img src="<?= base_url(session('file_profil') ? session('file_profil') : 'assets/admin/images/user.png'); ?>" alt="Profile Image" class="rounded-circle" width="100" height="100">
+                                    <img src="<?= base_url(session('file_profil') ? session('file_profil') : 'assets/admin/images/admin.png'); ?>" alt="Profile Image" class="rounded-circle" width="100" height="100">
                                 </div>
 
                                 <h4 style="margin-top: 20px;"><?= session()->has('nama_lengkap') ? session('nama_lengkap') : ''; ?></h4>
-                                <p style="margin-top: 10px;"><?= $nama_jabatan; ?><br>PPID Kab. Pesawaran</p>
+                                <p style="margin-top: 10px;">User<br>PERPUS DIGITAL</p>
                             </div>
                         </div>
                     </div>
@@ -233,7 +218,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <i class="fas fa-user"></i>
-                                <a href="/admin/profile"><span>Profil</span></a>
+                                <a href="/user/profile"><span>Profil</span></a>
                             </li>
                             <li class="list-group-item">
                                 <i class="fas fa-lock"></i>
@@ -251,7 +236,7 @@
                     <div class="mt-4 card">
                         <div class="card-body">
                             <div class="informasi-pribadi-section">
-                                <a href="/admin/profile" class="btn btn-link">
+                                <a href="/user/profile" class="btn btn-link">
                                     <i class="fas fa-arrow-left" style="font-size: 16px;"></i> Kembali
                                 </a>
                                 <h5 class="card-title">Ubah Kata Sandi</h5>
@@ -273,7 +258,7 @@
                                 <?php endif; ?>
                             </div>
 
-                            <form action="/admin/profile/updateSandi/<?= session('id_user'); ?>" method="post" enctype="multipart/form-data" id="validationForm" class="needs-validation" novalidate>
+                            <form action="/user/profile/updateSandi/<?= session('id_user'); ?>" method="post" enctype="multipart/form-data" id="validationForm" class="needs-validation" novalidate>
                                 <?= csrf_field(); ?>
 
                                 <div class="custom-form-group">
@@ -320,7 +305,7 @@
             </div>
         </div>
     </div>
-    <?= $this->include('admin/layouts/script2') ?>
+    <?= $this->include('user/layouts/script2') ?>
 
     <script>
         // JavaScript untuk validasi form

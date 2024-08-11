@@ -8,7 +8,7 @@ class KategoriBukuModel extends Model
 {
     protected $table = 'tb_kategori_buku';
     protected $primaryKey = 'id_kategori_buku';
-    protected $retunType = 'object';
+    protected $returnType = 'object';
     protected $allowedFields = ['id_user', 'nama_kategori'];
     protected $useTimestamps = true;
     protected $useSoftDeletes = false;
@@ -23,6 +23,26 @@ class KategoriBukuModel extends Model
         // Pastikan mengembalikan array, atau jika tidak ada data, kembalikan array kosong
         return $this->where('id_user', $id_user)->orderBy('id_kategori_buku', 'DESC')->findAll() ?: [];
     }
+
+    public function getAllDataByAdmin($id_user)
+    {
+        return $this->where('id_user', $id_user)
+            ->orderBy('id_kategori_buku', 'DESC')
+            ->findAll() ?: [];
+    }
+
+    public function getAllDataByUserAdmin($id_user)
+    {
+        $query = $this->db->table('tb_kategori_buku')
+            ->where('id_user', $id_user)
+            ->get();
+
+        // Debugging output
+        // var_dump($query->getResultArray()); die;
+
+        return $query->getResultArray();
+    }
+
 
     // Method untuk menghitung jumlah data berdasarkan id tertentu
     public function countById($id_kategori_buku)

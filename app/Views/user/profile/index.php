@@ -1,4 +1,4 @@
-<?= $this->include('admin/layouts/script') ?>
+<?= $this->include('user/layouts/script') ?>
 <style>
     .profile-card {
         text-align: center;
@@ -158,15 +158,15 @@
 </style>
 </head>
 
-<?= $this->include('admin/layouts/navbar') ?>
-<?= $this->include('admin/layouts/rightsidebar') ?>
+<?= $this->include('user/layouts/navbar') ?>
+<?= $this->include('user/layouts/rightsidebar') ?>
 
 <body>
 
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
-                <?= $this->include('admin/profile/rightsidebar') ?>
+                <?= $this->include('user/profile/rightsidebar') ?>
                 <div class="col-md-8 ml-4">
                     <div class="mt-4 card">
                         <div class="card-body">
@@ -207,7 +207,7 @@
                                 <?php endif; ?>
                             </div>
 
-                            <form action="/admin/profile/update/<?= session('id_user') ?>" method="post" enctype="multipart/form-data" id="validationForm" class="needs-validation" novalidate>
+                            <form action="/user/profile/update/<?= session('id_user') ?>" method="post" enctype="multipart/form-data" id="validationForm" class="needs-validation" novalidate>
                                 <?= csrf_field(); ?>
 
                                 <div class="mb-3">
@@ -238,17 +238,23 @@
                                     <label for="id_jabatan" class="col-form-label">Jabatan :</label>
                                     <select class="form-select custom-border" id="id_jabatan" name="id_jabatan" aria-label="Default select example" style="background-color: #C7C8CC;" required disabled>
                                         <option value="" selected disabled>Silahkan Pilih Jabatan Anda --</option>
-                                        <?php foreach ($tb_jabatan as $value) : ?>
-                                            <?php
-                                            // Check jika $tb_user memiliki kunci 'id_jabatan'
-                                            $selected = '';
-                                            if (session()->has('id_jabatan')) {
-                                                // Jika ada, cek jika nilai id_jabatan sama dengan nilai saat ini dalam loop
-                                                $selected = ($value['id_jabatan'] == old('id_jabatan', session('id_jabatan'))) ? 'selected' : '';
-                                            }
-                                            ?>
-                                            <option value="<?= $value['id_jabatan'] ?>" <?= $selected ?>><?= $value['nama_jabatan'] ?></option>
-                                        <?php endforeach; ?>
+                                        <?php if (is_array($tb_jabatan) || is_object($tb_jabatan)) : ?>
+                                            <?php foreach ($tb_jabatan as $value) : ?>
+                                                <?php
+                                                // Check jika $tb_user memiliki kunci 'id_jabatan'
+                                                $selected = '';
+                                                if (session()->has('id_jabatan')) {
+                                                    // Jika ada, cek jika nilai id_jabatan sama dengan nilai saat ini dalam loop
+                                                    $selected = ($value['id_jabatan'] == old('id_jabatan', session('id_jabatan'))) ? 'selected' : '';
+                                                }
+                                                ?>
+                                                <option value="<?= $value['id_jabatan'] ?>" <?= $selected ?>><?= $value['nama_jabatan'] ?></option>
+                                            <?php endforeach; ?>
+                                        <?php else : ?>
+                                            <tr>
+                                                <td colspan="3">Tidak ada data untuk ditampilkan.</td>
+                                            </tr>
+                                        <?php endif; ?>
                                     </select>
                                 </div>
 
@@ -289,7 +295,7 @@
                                             <p>File exists: <?= basename(session('file_profil')); ?></p>
                                             <input type="hidden" name="old_file_profil" value="<?= session('file_profil'); ?>">
                                         <?php else : ?>
-                                            <img src="<?= base_url('assets/admin/images/user.png'); ?>" alt="Profile Photo" id="profilePhotoPreview" style="max-width: 150px;">
+                                            <img src="<?= base_url('assets/user/images/user.png'); ?>" alt="Profile Photo" id="profilePhotoPreview" style="max-width: 150px;">
                                         <?php endif; ?>
                                     </div>
                                     <input type="file" accept="image/*" class="form-control <?= isset($validation) && $validation->hasError('file_profil') ? 'is-invalid' : ''; ?>" style="background-color: white;" id="file_profil" name="file_profil">
@@ -308,7 +314,7 @@
             </div>
         </div>
     </div>
-    <?= $this->include('admin/layouts/script2') ?>
+    <?= $this->include('user/layouts/script2') ?>
 
     <script>
         document.getElementById('file_profil').addEventListener('change', function(event) {

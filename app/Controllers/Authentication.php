@@ -23,7 +23,7 @@ class Authentication extends BaseController
     public function registrasi()
     {
         $data = [
-            'title' => 'Registrasi Polsek Kayu Aro',
+            'title' => 'Registrasi PERPUS DIGITAL',
             'validation' => session()->getFlashdata('validation') ?? \Config\Services::validation(),
             'pesan' => session()->getFlashdata('pesan'),
             'gagal' => session()->getFlashdata('gagal')
@@ -102,7 +102,7 @@ class Authentication extends BaseController
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $this->m_user->save([
-            'id_jabatan' => 1,
+            'id_jabatan' => 2,
             'username' => $username,
             'password' => $hashedPassword,
             'email' => $email,
@@ -290,7 +290,7 @@ class Authentication extends BaseController
         }
 
         $data = [
-            'title' => 'Lupa Password PPID',
+            'title' => 'Lupa Password PERPUS DIGITAL',
             'validation' => session()->getFlashdata('validation') ?? \Config\Services::validation(),
         ];
 
@@ -353,7 +353,7 @@ class Authentication extends BaseController
         }
 
         $data = [
-            'title' => 'Reset Password PPID',
+            'title' => 'Reset Password PERPUS DIGITAL',
             'validation' => session()->getFlashdata('validation') ?? [],
             'old_input' => $this->request->getPost(), // Menggunakan input yang baru saja dikirimkan
         ];

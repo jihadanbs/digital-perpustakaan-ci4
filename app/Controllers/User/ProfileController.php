@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\User;
 
 use App\Controllers\BaseController;
 
@@ -13,29 +13,25 @@ class ProfileController extends BaseController
             return redirect()->to('authentication/login')->with('gagal', 'Anda belum login');
         }
 
-        if (session()->get('id_jabatan') != 1) {
+        if (session()->get('id_jabatan') != 2) {
             return redirect()->to('authentication/login');
         }
 
         $tb_jabatan = $this->m_jabatan->getAll();
         //WAJIB//
         $tb_user = $this->m_user->getAll();
-        $unread = $this->m_feedback->getUnreadEntries();
-        $unreadCount = $this->m_feedback->countUnreadEntries();
         //END WAJIB//
 
         $data = [
-            'title' => 'Admin | Profile',
+            'title' => 'User | Profile',
             'validation' => session()->getFlashdata('validation') ?? \Config\Services::validation(),
             //WAJIB//
             'tb_user' => $tb_user,
-            'unread' => $unread,
-            'unreadCount' => $unreadCount,
             //END WAJIB//
             'tb_jabatan' => $tb_jabatan,
         ];
 
-        return view('admin/profile/index', $data);
+        return view('user/profile/index', $data);
     }
 
     public function update($id_user)
@@ -45,7 +41,7 @@ class ProfileController extends BaseController
             return redirect()->to('authentication/login')->with('gagal', 'Anda belum login');
         }
 
-        if (session()->get('id_jabatan') != 1) {
+        if (session()->get('id_jabatan') != 2) {
             return redirect()->to('authentication/login');
         }
 
@@ -117,7 +113,7 @@ class ProfileController extends BaseController
         // Set flash message untuk sukses
         session()->setFlashdata('pesan', 'Data Berhasil Diubah &#128077;');
 
-        return redirect()->to('/admin/profile');
+        return redirect()->to('/user/profile');
     }
 
     public function resetPassword()
@@ -127,29 +123,25 @@ class ProfileController extends BaseController
             return redirect()->to('authentication/login')->with('gagal', 'Anda belum login');
         }
 
-        if (session()->get('id_jabatan') != 1) {
+        if (session()->get('id_jabatan') != 2) {
             return redirect()->to('authentication/login');
         }
 
         $tb_jabatan = $this->m_jabatan->getAll();
         //WAJIB//
         $tb_user = $this->m_user->getAll();
-        $unread = $this->m_feedback->getUnreadEntries();
-        $unreadCount = $this->m_feedback->countUnreadEntries();
         //END WAJIB//
 
         $data = [
-            'title' => 'Admin | Atur Ulang Kata Sandi',
+            'title' => 'user | Atur Ulang Kata Sandi',
             'validation' => session()->getFlashdata('validation') ?? \Config\Services::validation(),
             //WAJIB//
             'tb_user' => $tb_user,
-            'unread' => $unread,
-            'unreadCount' => $unreadCount,
             //END WAJIB//
             'tb_jabatan' => $tb_jabatan,
         ];
 
-        return view('admin/profile/resetpassword', $data);
+        return view('user/profile/resetpassword', $data);
     }
 
     public function updateSandi()
@@ -212,11 +204,11 @@ class ProfileController extends BaseController
 
             // Setelah update sukses, tampilkan pesan berhasil
             session()->setFlashdata('pesan', 'Kata sandi berhasil diubah');
-            return redirect()->to('admin/profile/resetpassword');
+            return redirect()->to('user/profile/resetpassword');
         } else {
             // Jika kata sandi lama tidak cocok
             session()->setFlashdata('gagal', 'Kata sandi lama tidak cocok');
-            return redirect()->to('admin/profile/resetpassword')->withInput();
+            return redirect()->to('user/profile/resetpassword')->withInput();
         }
     }
 }

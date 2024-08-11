@@ -73,9 +73,9 @@
 </style>
 <div class="col-md-12">
 
-    <?= $this->include('user/layouts/navbar') ?>
     <!-- saya nonaktifkan agar side bar tidak dapat di klik sembarangan -->
     <div style="pointer-events: none;">
+        <?= $this->include('user/layouts/navbar') ?>
         <?= $this->include('user/layouts/sidebar') ?>
     </div>
     <?= $this->include('user/layouts/rightsidebar') ?>

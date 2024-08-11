@@ -107,7 +107,7 @@
                                     <div class="mb-3">
                                         <label for="file_cover_buku" class="col-form-label">Cover Buku <span style="color: red;">*</span></label>
                                         <input type="file" accept="image/*" class="form-control <?= ($validation->hasError('file_cover_buku')) ? 'is-invalid' : ''; ?>" id="file_cover_buku" name="file_cover_buku" style="background-color: white;" <?= (old('file_cover_buku')) ? 'disabled' : 'required'; ?> onchange="previewImage(event)">
-                                        <small class="form-text text-muted">Pastikan Foto Profile Yang Diunggah Tidak Lebih Dari 5MB</small>
+                                        <small class="form-text text-muted">Pastikan Cover Buku yang diunggah tidak lebih dari 5MB</small>
                                         <br>
                                         <img id="preview" src="#" alt="Pratinjau cover buku" style="display: none; max-width: 200px; max-height: 200px; margin-top: 10px;">
                                         <div class="invalid-feedback">
@@ -118,7 +118,7 @@
                                     <div class="mb-3">
                                         <label for="file_buku" class="col-form-label">File Buku <span style="color: red;">*</span></label>
                                         <input type="file" accept="application/pdf" class="form-control custom-border" id="file_buku" name="file_buku" style="background-color: white;">
-
+                                        <small class="form-text text-muted">Pastikan File Buku yang diunggah tidak lebih dari 50MB</small>
                                         <div class="invalid">
                                             <?= esc($validation->getError('file_buku'), 'html') ?>
                                         </div>

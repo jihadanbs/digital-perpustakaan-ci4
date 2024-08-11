@@ -26,7 +26,34 @@ $routes->GET('dashboard', 'RoleController::index');
 
 //ROLE ADMIN
 $routes->GROUP('admin', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+    /*=================================== DASHBOARD ====================================*/
     $routes->GET('dashboard', 'Dashboard::index', ['namespace' => 'App\Controllers\Admin']);
+
+    /*=================================== PROFILE ====================================*/
+    $routes->GET('profile', 'ProfileController::index', ['namespace' => 'App\Controllers\Admin']);
+    $routes->GROUP('profile', static function ($routes) {
+        $routes->POST('update/(:num)', 'ProfileController::update/$1', ['namespace' => 'App\Controllers\Admin']);
+        $routes->GET('resetpassword', 'ProfileController::resetPassword', ['namespace' => 'App\Controllers\Admin']);
+        $routes->POST('updateSandi/(:num)', 'ProfileController::updateSandi/$1', ['namespace' => 'App\Controllers\Admin']);
+    });
+
+    /*=================================== USERS ====================================*/
+    $routes->GET('users', 'UsersController::index', ['namespace' => 'App\Controllers\Admin']);
+    $routes->GROUP('users', static function ($routes) {
+        $routes->POST('get_data', 'UsersController::get_data', ['namespace' => 'App\Controllers\Admin']);
+        $routes->POST('ambilData', 'UsersController::ambilData', ['namespace' => 'App\Controllers\Admin']);
+        $routes->GET('getKategori', 'UsersController::getKategori', ['namespace' => 'App\Controllers\Admin']);
+        $routes->GET('data/(:segment)', 'UsersController::data/$1', ['namespace' => 'App\Controllers\Admin']);
+        $routes->GET('exportExcel', 'UsersController::exportExcel', ['namespace' => 'App\Controllers\Admin']);
+        $routes->GET('totalData/(:num)', 'UsersController::totalData/$1', ['namespace' => 'App\Controllers\Admin']);
+        $routes->GET('tambah/(:segment)', 'UsersController::tambah/$1', ['namespace' => 'App\Controllers\Admin']);
+        $routes->POST('save/(:num)', 'UsersController::save/$1', ['namespace' => 'App\Controllers\Admin']);
+        $routes->GET('cek/(:segment)', 'UsersController::cek/$1', ['namespace' => 'App\Controllers\Admin']);
+        $routes->GET('edit/(:segment)', 'UsersController::edit/$1', ['namespace' => 'App\Controllers\Admin']);
+        $routes->PUT('update/(:num)', 'UsersController::update/$1', ['namespace' => 'App\Controllers\Admin']);
+        $routes->DELETE('deleteData2/(:num)', 'UsersController::deleteData2/$1', ['namespace' => 'App\Controllers\Admin']);
+        $routes->DELETE('deleteData/(:num)', 'UsersController::deleteData/$1', ['namespace' => 'App\Controllers\Admin']);
+    });
 });
 
 //ROLE USER

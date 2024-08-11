@@ -83,37 +83,43 @@ class BukuController extends BaseController
     }
     // END SERVER SIDE PROCESSING
 
-    public function tambah()
+    public function tambah($id_buku)
     {
         // Cek session
         if (!$this->session->has('islogin')) {
             return redirect()->to('authentication/login')->with('gagal', 'Anda belum login');
         }
+
+        if (session()->get('id_jabatan') != 2) {
+            return redirect()->to('authentication/login');
+        }
+
+        // Ambil id_user dari session
         $id_user = session()->get('id_user');
 
-        // Pastikan hanya pengguna dengan id_user yang sesuai yang dapat mengakses halaman
-        if (session()->get('id_user') != $id_user) {
-            return redirect()->to('authentication/login')->with('gagal', 'Anda tidak memiliki akses ke halaman ini');
+        // Pastikan data buku milik user yang login
+        $tb_buku = $this->m_buku->where('id_user', $id_user)->find($id_buku);
+        if (!$tb_buku) {
+            return redirect()->back()->with('gagal', 'Data buku tidak ditemukan atau Anda tidak memiliki akses');
         }
 
         //WAJIB//
         $tb_user = $this->m_user->getAll();
         //END WAJIB//
 
-        $tb_buku = $this->m_buku->getAllDataByUser($id_user);
         $tb_kategori_buku = $this->m_kategori_buku->getAllDataByUser($id_user);
 
         $data = [
-            'title' => 'User | Halaman Tambah Buku',
+            'title' => 'User | Halaman Edit Buku',
             'validation' => session()->getFlashdata('validation') ?? \Config\Services::validation(),
+            'tb_buku' => $tb_buku,
+            'tb_kategori_buku' => $tb_kategori_buku,
             //WAJIB//
             'tb_user' => $tb_user,
             //END WAJIB//
-            'tb_buku' => $tb_buku,
-            'tb_kategori_buku' => $tb_kategori_buku
         ];
 
-        return view('user/buku/tambah', $data);
+        return view('user/buku/edit', $data);
     }
 
     public function save()
@@ -220,7 +226,7 @@ class BukuController extends BaseController
             $dataFiles = $this->m_buku->getFilesById($id_buku);
 
             if (empty($dataFiles)) {
-                throw new \Exception('Tidak ada file yang ditemukan untuk id_buku.');
+                throw new \Exception('Tidak ada file yang ditemukan untuk buku.');
             }
 
             foreach ($dataFiles[0] as $fileColumn => $filePath) {
@@ -261,7 +267,7 @@ class BukuController extends BaseController
             $dataFiles = $this->m_buku->getFilesById($id_buku);
 
             if (empty($dataFiles)) {
-                throw new \Exception('Tidak ada file yang ditemukan untuk id_buku.');
+                throw new \Exception('Tidak ada file yang ditemukan untuk buku.');
             }
 
             foreach ($dataFiles[0] as $fileColumn => $filePath) {
@@ -292,7 +298,6 @@ class BukuController extends BaseController
         }
     }
 
-
     public function cek_data($id_buku)
     {
         // Cek session
@@ -300,7 +305,6 @@ class BukuController extends BaseController
             return redirect()->to('authentication/login')->with('gagal', 'Anda belum login');
         }
 
-        // Cek apakah user adalah admin
         if (session()->get('id_jabatan') != 2) {
             return redirect()->to('authentication/login');
         }
@@ -313,7 +317,7 @@ class BukuController extends BaseController
 
         // Cek apakah buku ada dan id_user yang login sama dengan id_user dari buku
         if (!$buku || $buku->id_user != $id_user_session) {
-            return redirect()->back()->with('gagal', 'Data informasi tidak ditemukan atau Anda tidak memiliki akses');
+            return redirect()->back()->with('gagal', 'Data buku tidak ditemukan atau Anda tidak memiliki akses');
         }
 
         //WAJIB//
@@ -334,137 +338,148 @@ class BukuController extends BaseController
         return view('user/buku/cek_data', $data);
     }
 
-    // public function edit($id_buku)
-    // {
-    //     // Cek session
-    //     if (!$this->session->has('islogin')) {
-    //         return redirect()->to('authentication/login')->with('gagal', 'Anda belum login');
-    //     }
+    public function edit($id_buku)
+    {
+        // Cek session
+        if (!$this->session->has('islogin')) {
+            return redirect()->to('authentication/login')->with('gagal', 'Anda belum login');
+        }
 
-    //     if (session()->get('id_jabatan') != 2) {
-    //         return redirect()->to('authentication/login');
-    //     }
+        if (session()->get('id_jabatan') != 2) {
+            return redirect()->to('authentication/login');
+        }
 
-    //     // Ambil id_user dari session
-    //     $id_user = session()->get('id_user');
+        // Ambil id_user dari session
+        $id_user = session()->get('id_user');
 
-    //     // Pastikan data desa milik user yang login
-    //     $tb_informasi_edukasi = $this->m_informasi->where('id_user', $id_user)->find($id_informasi);
-    //     if (!$tb_informasi_edukasi) {
-    //         return redirect()->back()->with('gagal', 'Data desa tidak ditemukan atau Anda tidak memiliki akses');
-    //     }
+        // Pastikan data buku milik user yang login
+        $tb_buku = $this->m_buku->where('id_user', $id_user)->find($id_buku);
+        if (!$tb_buku) {
+            return redirect()->back()->with('gagal', 'Data buku tidak ditemukan atau Anda tidak memiliki akses');
+        }
 
-    //     //WAJIB//
-    //     $tb_user = $this->m_user->getAll();
-    //     //END WAJIB//
-    //     $tb_kategori_informasi = $this->m_kategori_informasi->getAllDataByUser($id_user);
+        //WAJIB//
+        $tb_user = $this->m_user->getAll();
+        //END WAJIB//
 
-    //     $data = [
-    //         'title' => 'Admin | Halaman Edit Informasi-Edukasi',
-    //         'validation' => session()->getFlashdata('validation') ?? \Config\Services::validation(),
-    //         'tb_informasi_edukasi' => $tb_informasi_edukasi,
-    //         'tb_kategori_informasi' => $tb_kategori_informasi,
-    //         //WAJIB//
-    //         'tb_user' => $tb_user,
-    //         //END WAJIB//
-    //     ];
+        $tb_kategori_buku = $this->m_kategori_buku->getAllDataByUser($id_user);
 
-    //     return view('admin/informasi/edit', $data);
-    // }
-    // public function update($id_informasi)
-    // {
-    //     // Cek session
-    //     if (!$this->session->has('islogin')) {
-    //         return redirect()->to('authentication/login')->with('gagal', 'Anda belum login');
-    //     }
+        $data = [
+            'title' => 'User | Halaman Edit Buku',
+            'validation' => session()->getFlashdata('validation') ?? \Config\Services::validation(),
+            'tb_buku' => $tb_buku,
+            'tb_kategori_buku' => $tb_kategori_buku,
+            //WAJIB//
+            'tb_user' => $tb_user,
+            //END WAJIB//
+        ];
 
-    //     if (session()->get('id_jabatan') != 2) {
-    //         return redirect()->to('authentication/login');
-    //     }
+        return view('user/buku/edit', $data);
+    }
+    public function update($id_buku)
+    {
+        // Cek session
+        if (!$this->session->has('islogin')) {
+            return redirect()->to('authentication/login')->with('gagal', 'Anda belum login');
+        }
 
-    //     // Ambil data dari request
-    //     $judul = $this->request->getVar('judul');
-    //     $konten = $this->request->getVar('konten');
-    //     $tanggal_diterbitkan = $this->request->getVar('tanggal_diterbitkan');
-    //     $penulis = $this->request->getVar('penulis');
-    //     $id_kategori_informasi = $this->request->getVar('id_kategori_informasi');
+        if (session()->get('id_jabatan') != 2) {
+            return redirect()->to('authentication/login');
+        }
 
-    //     //validasi input 
-    //     if (!$this->validate([
-    //         'id_kategori_informasi' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'Silahkan Pilih Nama Kategori Informasi !'
-    //             ]
-    //         ],
-    //         'judul' => [
-    //             'rules' => "required|trim|min_length[5]|max_length[25]",
-    //             'errors' => [
-    //                 'required' => 'Kolom Judul Tidak Boleh Kosong !',
-    //                 'min_length' => 'Judul Tidak Boleh Kurang Dari 5 Karakter !',
-    //                 'max_length' => 'Judul Tidak Boleh Melebihi 25 Karakter !',
-    //             ]
-    //         ],
-    //         'konten' => [
-    //             'rules' => 'required|trim|min_length[5]',
-    //             'errors' => [
-    //                 'required' => 'Kolom Isi Konten Tidak Boleh Kosong !',
-    //                 'min_length' => 'Isi Konten tidak boleh kurang dari 5 karakter !',
-    //             ]
-    //         ],
-    //         'tanggal_diterbitkan' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'Silahkan Masukkan Tanggal Konten !'
-    //             ]
-    //         ],
-    //         'penulis' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'Silahkan Masukkan Nama Si Penulis Konten !'
-    //             ]
-    //         ],
-    //     ])) {
-    //         session()->setFlashdata('validation', \Config\Services::validation());
-    //         return redirect()->back()->withInput();
-    //     }
+        // Ambil data dari request
+        $judul_buku = $this->request->getVar('judul_buku');
+        $deskripsi = $this->request->getVar('deskripsi');
+        $jumlah = $this->request->getVar('jumlah');
+        $id_kategori_buku = $this->request->getVar('id_kategori_buku');
 
-    //     // Handle file upload
-    //     $oldFileName = $this->request->getVar('current_gambar'); // Nama file lama dari input hidden
-    //     $newFileName = updateFileUmum('gambar', 'dokumen/gambar-edukasi/', $oldFileName);
+        //validasi input 
+        if (!$this->validate([
+            'id_kategori_buku' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Silahkan Pilih Nama Kategori Buku !'
+                ]
+            ],
+            'judul_buku' => [
+                'rules' => "required|trim|min_length[5]|max_length[100]",
+                'errors' => [
+                    'required' => 'Kolom Judul Tidak Boleh Kosong !',
+                    'min_length' => 'Judul Tidak Boleh Kurang Dari 5 Karakter !',
+                    'max_length' => 'Judul Tidak Boleh Melebihi 100 Karakter !',
+                ]
+            ],
+            'deskripsi' => [
+                'rules' => 'required|trim|min_length[5]',
+                'errors' => [
+                    'required' => 'Kolom Isi Deskripsi Tidak Boleh Kosong',
+                    'min_length' => 'Isi Deskripsi tidak boleh kurang dari 5 karakter !',
+                ]
+            ],
+            'jumlah' => [
+                'rules' => 'required|integer|greater_than[0]',
+                'errors' => [
+                    'required' => 'Silahkan Masukkan Kolom Jumlah !',
+                    'integer' => 'Kolom Jumlah harus berupa angka !',
+                    'greater_than' => 'Inputan Jumlah harus lebih besar dari 0 !',
+                ]
+            ],
+            // 'file_cover_buku' => [
+            //     'rules' => 'uploaded[file_cover_buku]|mime_in[file_cover_buku,image/jpeg,image/jpg,image/png]|ext_in[file_cover_buku,jpeg,jpg,png]',
+            //     'errors' => [
+            //         'uploaded' => 'Silahkan unggah file cover buku!',
+            //         'mime_in' => 'Format file cover buku harus berupa jpeg, jpg, atau png!',
+            //         'ext_in' => 'Ekstensi file cover buku harus jpeg, jpg, atau png!',
+            //     ]
+            // ],
+            // 'file_buku' => [
+            //     'rules' => 'uploaded[file_buku]|mime_in[file_buku,application/pdf]|ext_in[file_buku,pdf]',
+            //     'errors' => [
+            //         'uploaded' => 'Silahkan unggah file buku!',
+            //         'mime_in' => 'Format file buku harus berupa PDF!',
+            //         'ext_in' => 'Ekstensi file buku harus PDF!',
+            //     ]
+            // ],
+        ])) {
+            session()->setFlashdata('validation', \Config\Services::validation());
+            return redirect()->back()->withInput();
+        }
 
-    //     $oldFileProfile = $this->request->getVar('current_profile_penulis'); // Nama file lama dari input hidden
-    //     $newFileProfile = updateFileUmum('profile_penulis', 'dokumen/profile-penulis/', $oldFileProfile);
+        // Handle file upload
+        $coverBukuLama = $this->request->getVar('current_file_cover_buku'); // Nama file lama dari input hidden
+        $coverBukuBaru = updateFile('file_cover_buku', 'dokumen/cover-buku/', $coverBukuLama);
 
-    //     // Ambil id_user dari session
-    //     $id_user = session()->get('id_user');
-    //     $slug = url_title($this->request->getVar('judul'), '-', true);
+        $fileBukuLama = $this->request->getVar('current_file_buku'); // Nama file lama dari input hidden
+        $fileBukuBaru = updateFilePDF('file_buku', 'dokumen/file-buku/', $fileBukuLama);
 
-    //     $this->m_informasi->save([
-    //         'id_informasi' => $id_informasi,
-    //         'judul' => $judul,
-    //         'konten' => $konten,
-    //         'penulis' => $penulis,
-    //         'tanggal_diterbitkan' => $tanggal_diterbitkan,
-    //         'gambar' => $newFileName,
-    //         'profile_penulis' => $newFileProfile,
-    //         'id_kategori_informasi' => $id_kategori_informasi,
-    //         'id_user' => $id_user,
-    //         'slug' => $slug
-    //     ]);
+        // Ambil id_user dari session
+        $id_user = session()->get('id_user');
+        $slug = url_title($this->request->getVar('judul_buku'), '-', true);
 
-    //     // Set flash message untuk sukses
-    //     session()->setFlashdata('pesan', 'Data Berhasil Diubah &#228077;');
+        $this->m_buku->save([
+            'id_buku' => $id_buku,
+            'id_kategori_buku' => $id_kategori_buku,
+            'judul_buku' => $judul_buku,
+            'deskripsi' => $deskripsi,
+            'jumlah' => $jumlah,
+            'file_cover_buku' => $coverBukuBaru,
+            'file_buku' => $fileBukuBaru,
+            'id_user' => $id_user,
+            'slug' => $slug
+        ]);
 
-    //     return redirect()->to('/admin/informasi');
-    // }
+        // Set flash message untuk sukses
+        session()->setFlashdata('pesan', 'Data Berhasil Diubah &#129395;');
 
-    // public function totalData($id_user)
-    // {
-    //     $totalData = $this->m_informasi->getTotalInformasi($id_user);
-    //     // Keluarkan total data sebagai JSON response
-    //     return $this->response->setJSON(['total' => $totalData]);
-    // }
+        return redirect()->to('/user/buku');
+    }
+
+    public function totalData($id_user)
+    {
+        $totalData = $this->m_buku->getTotalBuku($id_user);
+        // Keluarkan total data sebagai JSON response
+        return $this->response->setJSON(['total' => $totalData]);
+    }
     public function exportExcel()
     {
         // Ambil id_user dari session jika diperlukan

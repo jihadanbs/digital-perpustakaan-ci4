@@ -71,21 +71,112 @@
         <div class="page-content">
             <div class="container-fluid">
 
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0 font-size-18">Dashboard</h4>
 
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Dashboard</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+                <!-- Greeting Card -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="greeting-card">
+                            <div class="row align-items-center">
+                                <div class="col-md-10">
+                                    <h2 class="greeting-title mb-2">Selamat Datang Di Halaman User PERPUS DIGITAL</h2>
+                                    <p class="greeting-message">"Setiap Langkah Kecil Membawa Kita Lebih Dekat Pada Tujuan Besar! &#128521"</p>
+                                </div>
+                                <div class="col-md-1 text-end">
+                                    <img src="<?= base_url('assets/img/binmas.png') ?>" height="100px" alt="Welcome">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Buku -->
+                    <div class="col-xl-3 col-md-6">
+                        <!-- card -->
+                        <div class="card card-h-100" style="background-color: #28527a;">
+                            <div style="background-color: #28527a;"></div>
+                            <ul class="bg-bubbles">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <!-- card body -->
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <span class="text-muted mb-3 lh-1 d-block"></span>
+                                        <h4 class="mb-3">
+                                            <span class="counter-value ms-3" id="totalBukuCounter" data-target="0" style="color: #f4d160; font-size: 32px;">0</span>
+                                        </h4>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <i class="fas fa-book-open fa-4x text-muted" style="color: #f4d160 !important;"></i>
+                                    </div>
+                                </div>
+                                <div class="text-nowrap mt-4">
+                                    <span class="ms-0 text-muted d-block text-truncate fw-bold" style="color: #f4d160 !important; font-size: 16px;">Jumlah Data Buku</span>
+                                </div>
+                            </div><!-- end card body -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+                </div>
+                <!-- end row-->
             </div>
-            <!-- End Page-content -->
-
+            <!-- container-fluid -->
         </div>
-        <!-- end main content-->
+        <!-- End Page-content -->
         <?= $this->include('user/layouts/footer') ?>
-
     </div>
-    <!-- END layout-wrapper -->
+    <!-- end main content-->
     <?= $this->include('user/layouts/script2') ?>
 
-    <!-- Script Total Data Per Fitur -->
+    <!-- Script Total Data Buku -->
+    <script>
+        $(document).ready(function() {
+            updateTotal();
 
+            function updateTotal() {
+                var id_user = "<?= $id_user ?>"; // Mendapatkan ID pengguna dari PHP
+                getTotalFeedback("/user/buku/totalData/" + id_user, function(responsePemohon) {
+                    // Update nilai total pada elemen dengan id "totalBukuCounter"
+                    var total = parseInt(responsePemohon.total);
+                    $("#totalBukuCounter").attr("data-target", total);
+                    $("#totalBukuCounter").text(total);
+                });
+            }
 
+            function getTotalFeedback(url, callback) {
+                $.ajax({
+                    url: url, // URL untuk total Buku
+                    type: "GET",
+                    success: function(response) {
+                        callback(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

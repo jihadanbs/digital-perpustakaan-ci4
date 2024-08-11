@@ -22,7 +22,7 @@ class Dashboard extends BaseController
             // END WAJIB //
         ];
 
-        // Jika pengguna tidak login dan mencoba mengakses halaman admin dashboard, arahkan kembali dan beri pesan
+        // Jika pengguna tidak login dan mencoba mengakses halaman user dashboard, arahkan kembali dan beri pesan
         if (!$this->session->has('islogin') || session()->get('id_jabatan') != 2) {
             return redirect()->to('authentication/login')->with('gagal', 'Anda belum login');
         } else {

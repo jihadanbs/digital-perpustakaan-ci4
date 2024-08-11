@@ -88,4 +88,55 @@ class UserModel extends Model
     {
         return $this->update($id_user, ['is_logged_in' => $status]);
     }
+
+    // Baru
+    public function getUsersWithUserRole()
+    {
+        return $this->select('tb_user.*, tb_jabatan.nama_jabatan')
+            ->join('tb_jabatan', 'tb_jabatan.id_jabatan = tb_user.id_jabatan')
+            ->where('tb_jabatan.nama_jabatan', 'User')
+            ->findAll();
+    }
+
+    // Method to get the filtered user data
+    public function getFilteredUsers($start, $length, $searchValue = null)
+    {
+        $this->select('tb_user.*, tb_jabatan.nama_jabatan')
+            ->join('tb_jabatan', 'tb_jabatan.id_jabatan = tb_user.id_jabatan')
+            ->where('tb_jabatan.nama_jabatan', 'User');
+
+        // Add search functionality
+        if ($searchValue) {
+            $this->groupStart()
+                ->like('tb_user.nama_lengkap', $searchValue)
+                ->orLike('tb_user.email', $searchValue)
+                ->groupEnd();
+        }
+
+        return $this->findAll($length, $start);
+    }
+
+    // Method to count all users
+    public function countAllUsers()
+    {
+        return $this->join('tb_jabatan', 'tb_jabatan.id_jabatan = tb_user.id_jabatan')
+            ->where('tb_jabatan.nama_jabatan', 'User')
+            ->countAllResults();
+    }
+
+    // Method to count filtered users
+    public function countFilteredUsers($searchValue = null)
+    {
+        $this->join('tb_jabatan', 'tb_jabatan.id_jabatan = tb_user.id_jabatan')
+            ->where('tb_jabatan.nama_jabatan', 'User');
+
+        if ($searchValue) {
+            $this->groupStart()
+                ->like('tb_user.nama_lengkap', $searchValue)
+                ->orLike('tb_user.email', $searchValue)
+                ->groupEnd();
+        }
+
+        return $this->countAllResults();
+    }
 }
