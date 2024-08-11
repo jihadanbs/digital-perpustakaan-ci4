@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Formulir Tambah Data Buku</h4>
+                        <h4 class="mb-sm-0 font-size-18">Formulir Tambah Data Buku - <?= esc($nama_lengkap) ?> | Id User : <?= esc($id_user) ?></h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -70,10 +70,9 @@
                                                 <option value="" selected disabled>~ Silahkan Pilih Nama Kategori Informasi ~</option>
                                                 <?php if (!empty($tb_kategori_buku)) : ?>
                                                     <?php foreach ($tb_kategori_buku as $value) : ?>
-                                                        <option value="<?= esc($value->id_kategori_buku, 'attr') ?>" <?= old('id_kategori_buku') == $value->id_kategori_buku ? 'selected' : ''; ?>>
-                                                            <?= esc($value->nama_kategori, 'html') ?>
+                                                        <option value="<?= esc($value['id_kategori_buku'], 'attr') ?>" <?= old('id_kategori_buku') == $value['id_kategori_buku'] ? 'selected' : ''; ?>>
+                                                            <?= esc($value['nama_kategori'], 'html') ?>
                                                         </option>
-
                                                     <?php endforeach; ?>
                                                 <?php else : ?>
                                                     <option value="">Tidak ada kategori yang tersedia</option>

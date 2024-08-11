@@ -96,20 +96,14 @@
                             <div class="row align-items-center">
                                 <div class="col-md-10">
                                     <h2 class="greeting-title mb-2">Selamat Datang Di Halaman Admin PERPUS DIGITAL</h2>
-                                    <p class="greeting-message">"Setiap Langkah Kecil Membawa Kita Lebih Dekat Pada Tujuan Besar! &#128521"</p>
+                                    <p class="greeting-message">"Dikit - Dikit Lama - Lama Menjadi Bukit ! &#128521"</p>
                                 </div>
                                 <div class="col-md-1 text-end">
-                                    <img src="<?= base_url('assets/img/binmas.png') ?>" height="100px" alt="Welcome">
+                                    <img src="<?= base_url('assets/img/sekolah.png') ?>" height="100px" alt="Welcome">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <!-- Buku -->
-
-                    <!-- end col -->
                 </div>
                 <!-- end row-->
             </div>
@@ -120,36 +114,6 @@
     </div>
     <!-- end main content-->
     <?= $this->include('admin/layouts/script2') ?>
-
-    <!-- Script Total Data Buku -->
-    <!-- <script>
-        $(document).ready(function() {
-            updateTotal();
-
-            function updateTotal() {
-                var id_user = "<?= $id_user ?>"; // Mendapatkan ID pengguna dari PHP
-                getTotalFeedback("/user/buku/totalData/" + id_user, function(responsePemohon) {
-                    // Update nilai total pada elemen dengan id "totalBukuCounter"
-                    var total = parseInt(responsePemohon.total);
-                    $("#totalBukuCounter").attr("data-target", total);
-                    $("#totalBukuCounter").text(total);
-                });
-            }
-
-            function getTotalFeedback(url, callback) {
-                $.ajax({
-                    url: url, // URL untuk total Buku
-                    type: "GET",
-                    success: function(response) {
-                        callback(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error:", error);
-                    }
-                });
-            }
-        });
-    </script> -->
 </body>
 
 </html>

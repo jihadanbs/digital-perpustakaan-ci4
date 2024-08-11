@@ -18,7 +18,7 @@ class KategoriBukuController extends BaseController
             return redirect()->to('authentication/login')->with('gagal', 'Anda tidak memiliki akses ke halaman ini');
         }
 
-        $tb_kategori_buku = $this->m_kategori_buku->getAllDataByUser($id_user);
+        $tb_kategori_buku = $this->m_kategori_buku->getAll($id_user);
 
         // Debugging untuk memastikan tipe data
         if (!is_array($tb_kategori_buku) && !is_object($tb_kategori_buku)) {

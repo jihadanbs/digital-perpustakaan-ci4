@@ -4,11 +4,11 @@
             <div class="col-sm-6"> Copyright
                 <script>
                     document.write(new Date().getFullYear())
-                </script> © Polsek Kayu Aro
+                </script> © PERPUS DIGITAL
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by Reissa Giana Azaria
+                    Design & Develop by Jihadan Beckhianosyuhada
                 </div>
             </div>
         </div>

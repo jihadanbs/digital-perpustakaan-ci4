@@ -93,7 +93,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Data Buku</h4>
+                        <h4 class="mb-sm-0 font-size-18">Data Buku - <?= esc($nama_lengkap) ?> | Id User : <?= esc($id_user) ?></h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -147,7 +147,7 @@
                                 <i class="fa fa-print"></i> Print
                             </a>
 
-                            <a href="<?= site_url('/admin/users/exportExcel') ?>" class="btn btn-success waves-effect waves-light me-1 mb-3">
+                            <a href="<?= site_url('/admin/users/exportExcel/' . $id_user) ?>" class="btn btn-success waves-effect waves-light me-1 mb-3">
                                 <i class="fa fa-file-excel"></i> Export to Excel
                             </a>
                             <input type="hidden" id="userId" value="<?= esc($id_user, 'html') ?>">

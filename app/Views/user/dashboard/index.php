@@ -99,7 +99,7 @@
                                     <p class="greeting-message">"Setiap Langkah Kecil Membawa Kita Lebih Dekat Pada Tujuan Besar! &#128521"</p>
                                 </div>
                                 <div class="col-md-1 text-end">
-                                    <img src="<?= base_url('assets/img/binmas.png') ?>" height="100px" alt="Welcome">
+                                    <img src="<?= base_url('assets/img/sekolah.png') ?>" height="100px" alt="Welcome">
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
 
             function updateTotal() {
                 var id_user = "<?= $id_user ?>"; // Mendapatkan ID pengguna dari PHP
-                getTotalFeedback("/user/buku/totalData/" + id_user, function(responsePemohon) {
+                getTotalBuku("/user/buku/totalData/" + id_user, function(responsePemohon) {
                     // Update nilai total pada elemen dengan id "totalBukuCounter"
                     var total = parseInt(responsePemohon.total);
                     $("#totalBukuCounter").attr("data-target", total);
@@ -163,7 +163,7 @@
                 });
             }
 
-            function getTotalFeedback(url, callback) {
+            function getTotalBuku(url, callback) {
                 $.ajax({
                     url: url, // URL untuk total Buku
                     type: "GET",

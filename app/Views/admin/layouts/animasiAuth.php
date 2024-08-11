@@ -54,8 +54,8 @@
                                                 <img src="<?= base_url('assets/img/foto2.jpg') ?>" class="avatar-md img-fluid rounded-circle" alt="...">
                                             </div>
                                             <div class="flex-grow-1 ms-3 mb-4">
-                                                <h5 class="font-size-18 text-white">Rakha Gian Raksyaka</h5>
-                                                <p class="mb-0 text-white-50">Mahasiswa</p>
+                                                <h5 class="font-size-18 text-white">Jihadan Beckhianosyuhada</h5>
+                                                <p class="mb-0 text-white-50">Mahasiswa AMIKOM Yogyakarta</p>
                                             </div>
                                         </div>
                                     </div>

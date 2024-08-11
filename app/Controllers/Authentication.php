@@ -124,7 +124,7 @@ class Authentication extends BaseController
         }
 
         $data = [
-            'title' => 'Login Polsek Kayu Aro',
+            'title' => 'Login PERPUS DIGITAL',
             'validation' => session()->getFlashdata('validation') ?? \Config\Services::validation(),
             'pesan' => session()->getFlashdata('pesan'),
             'gagal' => session()->getFlashdata('gagal')
@@ -307,11 +307,11 @@ class Authentication extends BaseController
             $dataAkun = $this->m_user->getData($email);
             if (!$dataAkun || $dataAkun['token'] != $token) {
                 // Jika tidak ada data akun atau token tidak valid, arahkan pengguna ke halaman yang sesuai
-                return redirect()->to('authentication/lupaPassword')->with('warning', 'Token Sudah Tidak Valid');
+                return redirect()->to('authentication/lupaPassword')->with('gagal', 'Token Sudah Tidak Valid');
             }
         } else {
             // Jika email atau token kosong, arahkan pengguna ke halaman yang sesuai
-            return redirect()->to('authentication/lupaPassword')->with('warning', 'Parameter Yang Dikirimkan Tidak Valid');
+            return redirect()->to('authentication/lupaPassword')->with('gagal', 'Parameter Yang Dikirimkan Tidak Valid');
         }
 
         if ($this->request->getPost()) {
@@ -363,7 +363,8 @@ class Authentication extends BaseController
 
     public function logout()
     {
-        $this->m_user->setLoginStatus(session()->get('id_user'), false);
+        $userModel = new UserModel();
+        $userModel->setLoginStatus(session()->get('id_user'), false);
 
         $this->session->destroy();
         return redirect()->to('authentication/login')->with('pesan', 'Anda sudah logout');

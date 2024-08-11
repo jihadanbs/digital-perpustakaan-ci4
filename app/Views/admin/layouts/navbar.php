@@ -110,19 +110,19 @@
                 <div class="navbar-brand-box">
                     <a href="dashboard" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="<?= base_url('assets/img/binmas.png') ?>" alt="" height="24">
+                            <img src="<?= base_url('assets/img/sekolah.png') ?>" alt="" height="24">
                         </span>
                         <span class="logo-lg">
-                            <img src="<?= base_url('assets/img/binmas.png') ?>" alt="" height="24"> <span class="judul">PERPUS DIGITAL</span>
+                            <img src="<?= base_url('assets/img/sekolah.png') ?>" alt="" height="24"> <span class="judul">PERPUS DIGITAL</span>
                         </span>
                     </a>
 
                     <a href="dashboard" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="<?= base_url('assets/img/binmas.png') ?>" alt="" height="24">
+                            <img src="<?= base_url('assets/img/sekolah.png') ?>" alt="" height="24">
                         </span>
                         <span class="logo-lg">
-                            <img src="<?= base_url('assets/img/binmas.png') ?>" alt="" height="24"> <span class="judul">PERPUS DIGITAL</span>
+                            <img src="<?= base_url('assets/img/sekolah.png') ?>" alt="" height="24"> <span class="judul">PERPUS DIGITAL</span>
                         </span>
                     </a>
                 </div>

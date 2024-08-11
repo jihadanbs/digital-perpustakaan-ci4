@@ -112,9 +112,6 @@
                             <a href="javascript:window.print()" class="btn btn-success btn-md waves-effect waves-light ml-3 no-print">
                                 <i class="fa fa-print"></i> Print
                             </a>
-                            <a href="<?= site_url('/admin/users/exportExcel') ?>" class="btn btn-success waves-effect waves-light ml-3 no-print">
-                                <i class="fa fa-file-excel"></i> Export to Excel
-                            </a>
                         </div>
                     </div>
 
@@ -208,7 +205,7 @@
 
                         <div class="form-group mb-4 mt-4">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="<?= esc(site_url('admin/users'), 'attr') ?>" class="btn btn-secondary btn-md ml-3 no-print">
+                                <a href="<?= esc(site_url('/admin/users/data/' . $value->id_user), 'attr') ?>" class="btn btn-secondary btn-md ml-3 no-print">
                                     <i class="fas fa-arrow-left"></i> Kembali
                                 </a>
                                 <a href="<?= esc(site_url('admin/users/edit/' . $value->id_buku), 'attr') ?>" class="btn btn-warning btn-md edit no-print">
@@ -276,7 +273,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "POST",
-                        url: "<?= site_url('/admin/users/deleteData2/' . $id_user) ?>",
+                        url: "<?= site_url('/admin/users/deleteData2/' . $value->id_user) ?>",
                         data: {
                             id_buku: id_buku,
                             _method: 'DELETE'
@@ -289,8 +286,7 @@
                                     text: response.message,
                                     icon: "success"
                                 }).then(() => {
-                                    // Redirect ke halaman /user/buku setelah sukses menghapus
-                                    window.location.href = '<?= site_url('/admin/users/data/' . $id_user) ?>';
+                                    window.location.href = '<?= site_url('/admin/users/data/' . $value->id_user) ?>';
                                 });
                             } else if (response.status === 'error') {
                                 Swal.fire({

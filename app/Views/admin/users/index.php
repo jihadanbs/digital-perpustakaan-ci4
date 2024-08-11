@@ -130,16 +130,13 @@
                                 <i class="fa fa-print"></i> Print
                             </a>
 
-                            <a href="<?= site_url('/admin/users/exportExcel') ?>" class="btn btn-success waves-effect waves-light me-1 mb-3">
-                                <i class="fa fa-file-excel"></i> Export to Excel
-                            </a>
-
                             <table id="example1" class="table table-bordered dt-responsive nowrap w-100">
                                 <thead>
                                     <tr class="highlight text-center" style="background-color: #28527A; color: white;">
                                         <th>Nomor</th>
                                         <th>Profil</th>
                                         <th>Nama User</th>
+                                        <th>Username</th>
                                         <th>Email</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -149,7 +146,7 @@
                                 </tbody>
                             </table>
 
-                            <small class="form-text text-danger">Note : Bila Tidak Bisa Melakukan Delete Dihalaman Ini, Anda Bisa Melakukannya Pada Halaman CEK DATA BUKU</small>
+                            <small class="form-text text-danger">Note : Gunakan Data Sebijak Mungkin !</small>
                         </div>
                     </div>
                 </div> <!-- end col -->
@@ -197,6 +194,9 @@
                     },
                     {
                         "data": 4
+                    },
+                    {
+                        "data": 5
                     }
                 ]
             });
@@ -204,60 +204,3 @@
     </script>
 
     <!-- END MEMANGGIL DATATABLE -->
-
-    <!-- HAPUS -->
-    <script>
-        $(document).ready(function() {
-            $('#example1').on('click', '.sa-warning', function(e) {
-                e.preventDefault();
-                var id_user = $(this).data('id');
-
-                Swal.fire({
-                    title: "Anda Yakin Ingin Menghapus?",
-                    text: "Data yang sudah dihapus tidak bisa dikembalikan!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#28527A",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Ya, Hapus!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            type: "POST",
-                            url: "<?= site_url('/admin/users/delete') ?>",
-                            data: {
-                                id_user: id_user,
-                                _method: 'DELETE'
-                            },
-                            dataType: 'json',
-                            success: function(response) {
-                                if (response.status === 'success') {
-                                    Swal.fire({
-                                        title: "Dihapus!",
-                                        text: response.message,
-                                        icon: "success"
-                                    }).then(() => {
-                                        location.reload(); // Refresh halaman setelah sukses menghapus
-                                    });
-                                } else if (response.status === 'error') {
-                                    Swal.fire({
-                                        title: "Gagal!",
-                                        text: response.message,
-                                        icon: "error"
-                                    });
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                Swal.fire({
-                                    title: "Error",
-                                    text: "Terjadi kesalahan. Silakan coba lagi.",
-                                    icon: "error"
-                                });
-                            }
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-    <!-- HAPUS -->

@@ -83,7 +83,7 @@ class BukuController extends BaseController
     }
     // END SERVER SIDE PROCESSING
 
-    public function tambah($id_buku)
+    public function tambah()
     {
         // Cek session
         if (!$this->session->has('islogin')) {
@@ -97,12 +97,11 @@ class BukuController extends BaseController
         // Ambil id_user dari session
         $id_user = session()->get('id_user');
 
-        // Pastikan data buku milik user yang login
-        $tb_buku = $this->m_buku->where('id_user', $id_user)->find($id_buku);
-        if (!$tb_buku) {
-            return redirect()->back()->with('gagal', 'Data buku tidak ditemukan atau Anda tidak memiliki akses');
+        // Pastikan hanya pengguna dengan id_user yang sesuai yang dapat mengakses halaman
+        if (session()->get('id_user') != $id_user) {
+            return redirect()->to('authentication/login')->with('gagal', 'Anda tidak memiliki akses ke halaman ini');
         }
-
+        $tb_buku = $this->m_buku->getAllDataByUser($id_user);
         //WAJIB//
         $tb_user = $this->m_user->getAll();
         //END WAJIB//
@@ -119,7 +118,7 @@ class BukuController extends BaseController
             //END WAJIB//
         ];
 
-        return view('user/buku/edit', $data);
+        return view('user/buku/tambah', $data);
     }
 
     public function save()

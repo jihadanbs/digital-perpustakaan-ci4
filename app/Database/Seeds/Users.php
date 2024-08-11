@@ -26,7 +26,7 @@ class Users extends Seeder
                 'id_jabatan' => '2',
                 'status' => 'aktif',
                 'password' => password_hash('12345', PASSWORD_DEFAULT),
-                'email' => 'jihadanbs11@gmail.com',
+                'email' => 'jihadanb@gmail.com',
                 'no_telepon' => '088212342233',
                 'file_profil' => 'user.jpg'
             ],

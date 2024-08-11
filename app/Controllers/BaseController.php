@@ -107,4 +107,15 @@ abstract class BaseController extends Controller
 
         return $drawing;
     }
+
+    protected function createDrawingAdmin($title, $description, $path, $width, $coordinate, $sheet)
+    {
+        $drawing = new Drawing();
+        $drawing->setName($title);
+        $drawing->setDescription($description);
+        $drawing->setPath($path);
+        $drawing->setHeight($width);
+        $drawing->setCoordinates($coordinate);
+        $drawing->setWorksheet($sheet);
+    }
 }

@@ -17,7 +17,7 @@
                             <div class="d-flex flex-column h-100">
                                 <div class="mb-4 mb-md-5 text-center">
                                     <a href="/" class="d-block auth-logo" target="_blank">
-                                        <img src="<?= base_url('assets/img/binmas.png') ?>" alt="" height="28"> <span class="logo-txt">Polsek Kayu Aro</span>
+                                        <img src="<?= base_url('assets/img/sekolah.png') ?>" alt="" height="28"> <span class="logo-txt">PERPUSTAKAAN DIGITAL</span>
                                     </a>
                                 </div>
                                 <div class="auth-content my-auto">
@@ -77,7 +77,7 @@
                                 <div class="mt-4 mt-md-5 text-center">
                                     <p class="mb-0">© <script>
                                             document.write(new Date().getFullYear())
-                                        </script> Polsek Kayu Aro . Dibuat Dengan <i class="mdi mdi-heart text-danger"></i> Oleh Reissa Giana Azaria</p>
+                                        </script> PERPUS DIGITAL . Dibuat Dengan <i class="mdi mdi-heart text-danger"></i> Oleh Jihadan Beckhianosyuhada</p>
                                 </div>
                             </div>
                         </div>

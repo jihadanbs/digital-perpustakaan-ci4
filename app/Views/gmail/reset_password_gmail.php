@@ -440,7 +440,7 @@
                           <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
                             <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                               <tr>
-                                <td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;font-size:0px"><img src="https://4.bp.blogspot.com/-mZIESsyeTVQ/W-PF6769_-I/AAAAAAAAPtk/riuYYSxoE3U9kpsFMgjA5MyNw8oYm5omQCLcBGAs/s1600/Binmas.png" alt="" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none" width="100" class="img-3556 adapt-img"></td>
+                                <td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;font-size:0px"><img src="https://png.pngtree.com/png-clipart/20211017/original/pngtree-school-logo-png-image_6851480.png" alt="" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none" width="100" class="img-3556 adapt-img"></td>
                               </tr>
                               <tr>
                                 <td align="center" class="es-m-p0r es-m-p0l es-m-txt-c" style="Margin:0;padding-top:15px;padding-right:40px;padding-bottom:15px;padding-left:40px">
@@ -479,7 +479,7 @@
                               </tr>
                               <tr>
                                 <td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px">
-                                  <p style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">Jika Anda tidak meminta untuk menyetel ulang sandi, abaikan pesan ini atau hubungi pihak Polsek Kayu Aro.</p>
+                                  <p style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">Jika Anda tidak meminta untuk menyetel ulang sandi, abaikan pesan ini atau hubungi pihak Perpustakaan Digital.</p>
                                 </td>
                               </tr>
                             </table>
@@ -506,16 +506,16 @@
                                 <td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px;font-size:0">
                                   <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                     <tr>
-                                      <td align="center" valign="top" class="es-m-p20r" style="padding:0;Margin:0;padding-right:30px"><a target="_blank" href="https://www.instagram.com" style="mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:12px"><img title="Instagram" src="https://eeavivq.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Inst" height="32" width="32" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
-                                      <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="mailto:polsekkayuaro@gmail.com" style="mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:12px"><img title="Gmail" src="https://eeavivq.stripocdn.email/content/assets/img/other-icons/logo-black/gmail-logo-black.png" alt="gm" height="32" width="32" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
+                                      <td align="center" valign="top" class="es-m-p20r" style="padding:0;Margin:0;padding-right:30px"><a target="_blank" href="https://www.instagram.com/jihadanbs/" style="mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:12px"><img title="Instagram" src="https://eeavivq.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Inst" height="32" width="32" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
+                                      <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="mailto:jihadanbs11@gmail.com" style="mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:12px"><img title="Gmail" src="https://eeavivq.stripocdn.email/content/assets/img/other-icons/logo-black/gmail-logo-black.png" alt="gm" height="32" width="32" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
                                     </tr>
                                   </table>
                                 </td>
                               </tr>
                               <tr>
                                 <td align="center" style="padding:0;Margin:0;padding-bottom:35px">
-                                  <p style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;letter-spacing:0;color:#333333;font-size:12px">Copyright © 2024, Polsek Kayu Aro. All Rights Reserved.</p>
-                                  <p style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;letter-spacing:0;color:#333333;font-size:12px">Jl. Raya Kayu Aro, Lindung Jaya, Kec. Kayu Aro, Kabupaten Kerinci, Jambi 37163</p>
+                                  <p style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;letter-spacing:0;color:#333333;font-size:12px">Copyright © 2024, Perpustakaan Digital. All Rights Reserved.</p>
+                                  <p style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;letter-spacing:0;color:#333333;font-size:12px">Jl. Nin Aja Sih Hehe, Ditunggu, Hireingnya, Makasih, 57555</p>
                                 </td>
                               </tr>
                               <tr>

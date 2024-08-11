@@ -11,6 +11,17 @@ class UserModel extends Model
     protected $primaryKey = 'id_user';
     protected $allowedFields = ['nama_lengkap', 'username', 'id_jabatan', 'password', 'email', 'no_telepon', 'token', 'file_profil', 'terakhir_login', 'is_logged_in', 'status'];
 
+
+    public function getLengkapById($id_user)
+    {
+        // Mengambil data pengguna berdasarkan id_user
+        $user = $this->where('id_user', $id_user)->first();
+
+        // Memeriksa apakah data ditemukan dan mengembalikan nama lengkap
+        return $user ? $user['nama_lengkap'] : 'Nama Tidak Ditemukan';
+    }
+
+
     public function getAll()
     {
         $builder = $this->db->table('tb_user');

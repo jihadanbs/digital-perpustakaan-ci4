@@ -8,7 +8,7 @@
                 </div>
 
                 <h4 style="margin-top: 20px;"><?= session()->has('nama_lengkap') ? session('nama_lengkap') : ''; ?></h4>
-                <p style="margin-top: 10px;">User<br>PERPUS DIGITAL</p>
+                <p style="margin-top: 10px;">Admin<br>PERPUS DIGITAL</p>
             </div>
         </div>
     </div>

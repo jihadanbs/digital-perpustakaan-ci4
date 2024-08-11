@@ -8,7 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->GET('/', 'Home::index');
 
 //AUTHENTICATION
-$routes->GROUP('authentication', function ($routes) { //catatan : pastikan POST / GET
+$routes->GROUP('authentication', function ($routes) {
     $routes->GET('registrasi', 'Authentication::registrasi/$1');
     $routes->POST('cekRegistrasi', 'Authentication::cekRegistrasi/');
     $routes->post('updateStatus', 'Authentication::updateStatus');
@@ -44,8 +44,7 @@ $routes->GROUP('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
         $routes->POST('ambilData', 'UsersController::ambilData', ['namespace' => 'App\Controllers\Admin']);
         $routes->GET('getKategori', 'UsersController::getKategori', ['namespace' => 'App\Controllers\Admin']);
         $routes->GET('data/(:segment)', 'UsersController::data/$1', ['namespace' => 'App\Controllers\Admin']);
-        $routes->GET('exportExcel', 'UsersController::exportExcel', ['namespace' => 'App\Controllers\Admin']);
-        $routes->GET('totalData/(:num)', 'UsersController::totalData/$1', ['namespace' => 'App\Controllers\Admin']);
+        $routes->GET('exportExcel/(:segment)', 'UsersController::exportExcel/$1', ['namespace' => 'App\Controllers\Admin']);
         $routes->GET('tambah/(:segment)', 'UsersController::tambah/$1', ['namespace' => 'App\Controllers\Admin']);
         $routes->POST('save/(:num)', 'UsersController::save/$1', ['namespace' => 'App\Controllers\Admin']);
         $routes->GET('cek/(:segment)', 'UsersController::cek/$1', ['namespace' => 'App\Controllers\Admin']);

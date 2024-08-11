@@ -77,9 +77,9 @@ defined('EXIT_USER_INPUT')     || define('EXIT_USER_INPUT', 7);     // invalid u
 defined('EXIT_DATABASE')       || define('EXIT_DATABASE', 8);       // database error
 defined('EXIT__AUTO_MIN')      || define('EXIT__AUTO_MIN', 9);      // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125);    // highest automatically-assigned error code
-defined('EMAIL_ALAMAT')        || define('EMAIL_ALAMAT', 'reissagiana@students.amikom.ac.id'); // mengganti email
-defined('EMAIL_NAMA')          || define('EMAIL_NAMA', 'Reissa Giana Azaria');
-defined('EMAIL_PASSWORD')      || define('EMAIL_PASSWORD', 'reissacantik');
+defined('EMAIL_ALAMAT')        || define('EMAIL_ALAMAT', 'jihadanbeckhianosyuhada@students.amikom.ac.id');
+defined('EMAIL_NAMA')          || define('EMAIL_NAMA', 'Jihadan Beckhianosyuhada');
+defined('EMAIL_PASSWORD')      || define('EMAIL_PASSWORD', 'jidan07082003');
 
 /**
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_LOW instead.
